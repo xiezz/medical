@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.xie.work.domain.CommentEntity" table="comment" schema="medical">
+        <id name="id">
+            <column name="id" sql-type="bigint(11)"/>
+        </id>
+        <property name="articleId">
+            <column name="article_id" sql-type="bigint(11)" not-null="true"/>
+        </property>
+        <property name="userId">
+            <column name="user_id" sql-type="bigint(11)" not-null="true"/>
+        </property>
+        <property name="content">
+            <column name="content" sql-type="varchar(100)" length="100" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

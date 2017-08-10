@@ -21,12 +21,10 @@ public class User {
     private Integer id;
     private String username;
     private String password;  
-      private String tel;  
-      private String email;
+    private String email;
     @Column(name="create_time")
     private Date createTime;
-    @Column(name="is_delete")
-    private Boolean isDelete;
+
 
     public Integer getId() {
         return id;
@@ -51,20 +49,6 @@ public class User {
     }
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-    public Boolean getIsDelete() {
-        return isDelete;
-    }
-    public void setIsDelete(Boolean isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
     }
 
     public String getEmail() {

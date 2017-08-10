@@ -43,8 +43,31 @@
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.current_session_context_class">thread</prop><!-- 使用getCurrentSession()方法，必须配置此属性 -->
+                <prop key="hibernate.current_session_context_class">thread</prop>
+                <prop key="hibernate.connection.url">
+                    jdbc:mysql://rm-uf6r8o0g4ed5p7vq4o.mysql.rds.aliyuncs.com:3306/medical
+                </prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver
+                </prop><!-- 使用getCurrentSession()方法，必须配置此属性 -->
             </props>
+        </property>
+        <property name="mappingLocations">
+            <list>
+                <value>classpath:com/xie/work/domain/ArticleEntity.hbm.xml</value>
+                <value>classpath:com/xie/work/domain/CommentEntity.hbm.xml</value>
+                <value>classpath:com/xie/work/domain/OrderEntity.hbm.xml</value>
+                <value>classpath:com/xie/work/domain/UseinfoEntity.hbm.xml</value>
+                <value>classpath:com/xie/work/domain/UserEntity.hbm.xml</value>
+            </list>
+        </property>
+        <property name="annotatedClasses">
+            <list>
+                <value>com.xie.work.domain.ArticleEntity</value>
+                <value>com.xie.work.domain.CommentEntity</value>
+                <value>com.xie.work.domain.OrderEntity</value>
+                <value>com.xie.work.domain.UseinfoEntity</value>
+                <value>com.xie.work.domain.UserEntity</value>
+            </list>
         </property>
     </bean>
 </beans>
