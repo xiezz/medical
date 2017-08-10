@@ -22,7 +22,7 @@ public class LoginServiceImpl implements ILoginService  {
     public Map<String, Object> login(String username, String password) throws Exception {
         Map<String,Object> returnMap = new HashMap<String,Object>();
 
-        String hql = "from user u where u.username='"+username+"'";
+        String hql = "from UserEntity u where u.username='"+username+"'";
         UserEntity user = new UserEntity();
         try {
             user = userDao.findOne(hql);
@@ -48,7 +48,7 @@ public class LoginServiceImpl implements ILoginService  {
     public Map<String, Object> register(String username, String password,String tel,String email) throws Exception {
         Map<String,Object> returnMap = new HashMap<String,Object>();
 
-        String hql = "from user u where u.username='"+username+"'";
+        String hql = "from UserEntity u where u.username='"+username+"'";
         UserEntity user = new UserEntity();
         if(userDao.findOne(hql) != null){
             returnMap.put("message", "该用户名已存在...");
