@@ -1,8 +1,7 @@
-package com.xie.work.login.controller;
+package com.xie.work.controller;
 
 import com.xie.work.domain.UserEntity;
-import com.xie.work.login.service.ILoginService;
-import com.xie.work.user.model.User;
+import com.xie.work.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +59,7 @@ public class LoginCtrl {
             //获取user实体
             Object object = map.get("value");
             if(object != null){
-                User user = (User) object;
+                UserEntity user = (UserEntity) object;
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", user.getId());
             }

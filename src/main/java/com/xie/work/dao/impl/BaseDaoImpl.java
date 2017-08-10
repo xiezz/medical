@@ -1,4 +1,4 @@
-package com.xie.work.base.dao.impl;
+package com.xie.work.dao.impl;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -12,7 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.xie.work.base.dao.IBaseDao;
+import com.xie.work.dao.IBaseDao;
 import com.xie.work.base.model.Page;
 import com.xie.work.base.vo.Parameter;
 

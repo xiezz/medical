@@ -34,7 +34,7 @@
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="packagesToScan">
             <list>
-                <value>com.xie.work.*.model</value>
+                <value>com.xie.work.*.domain</value>
             </list>
         </property>
         <property name="dataSource" ref="dataSource"></property>

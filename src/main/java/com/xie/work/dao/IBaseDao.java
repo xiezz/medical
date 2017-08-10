@@ -1,4 +1,4 @@
-package com.xie.work.base.dao;
+package com.xie.work.dao;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;

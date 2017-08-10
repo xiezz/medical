@@ -1,23 +1,15 @@
-package com.xie.work.login.service.impl;
+package com.xie.work.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import com.xie.work.user.dao.IUserDao;
+import com.xie.work.dao.IUserDao;
+import com.xie.work.domain.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xie.work.base.model.Page;
-import com.xie.work.login.service.ILoginService;
-import com.xie.work.user.model.User;
+import com.xie.work.service.ILoginService;
 /**
  * Created by xiezhongzheng on 2017/8/9.
  */
@@ -31,7 +23,7 @@ public class LoginServiceImpl implements ILoginService  {
         Map<String,Object> returnMap = new HashMap<String,Object>();
 
         String hql = "from user u where u.username='"+username+"'";
-        User user = new User();
+        UserEntity user = new UserEntity();
         try {
             user = userDao.findOne(hql);
         } catch (Exception e) {
@@ -57,7 +49,7 @@ public class LoginServiceImpl implements ILoginService  {
         Map<String,Object> returnMap = new HashMap<String,Object>();
 
         String hql = "from user u where u.username='"+username+"'";
-        User user = new User();
+        UserEntity user = new UserEntity();
         if(userDao.findOne(hql) != null){
             returnMap.put("message", "该用户名已存在...");
             returnMap.put("success", false);
@@ -66,7 +58,6 @@ public class LoginServiceImpl implements ILoginService  {
             user.setUsername(username);
             user.setPassword(password);
             user.setEmail(email);
-            user.setCreateTime(new Date());
             userDao.save(user);
             returnMap.put("value", user);
             returnMap.put("message", "注册成功");
