@@ -20,7 +20,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/login")
 public class LoginCtrl {
-
     @Autowired
     private ILoginService loginService;
 
@@ -51,7 +50,8 @@ public class LoginCtrl {
 
     @RequestMapping(value="/register",method=RequestMethod.GET)
     @ResponseBody
-    public Map<String,Object> register(HttpServletRequest request,String username,String password,String tel,String email){
+    public Map<String,Object> register(HttpServletRequest request,String username,
+                                       String password,String tel,String email){
         Map<String,Object> returnMap = new HashMap<String,Object>();
 
         try {
