@@ -15,13 +15,52 @@
 
     <!-- Custom styles for this template -->
     <link href="css/login.css" rel="stylesheet">
+    <script src="js/webjs/login.js"></script>
 </head>
 
 <body>
-
 <div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">校园竞赛管理平台</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <form class="form-signin" action="login/login">
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" active>
+                    <a class="nav-link" href="index.html">首页</a>
+                </li>
+                <li class="nav-item" active>
+                    <a class="nav-link" href="information.html">竞赛资讯</a>
+                </li>
+                <li class="nav-item" active>
+                    <a class="nav-link" href="group.html">竞赛组队</a>
+                </li>
+                <li class="nav-item" active>
+                    <a class="nav-link" href="discuss.html">竞赛讨论</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">个人信息</a>
+                        <a class="dropdown-item" href="#">项目进度</a>
+                        <a class="dropdown-item" href="#">评价系统</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+            <form class="form-inline my-2 my-lg-0">
+                <input type="button" onclick="window.location='/medical/login.html'"class="btn btn-outline-success my-2 my-sm-0" value="登陆/注册"/></button>
+            </form>
+        </div>
+    </nav>
+
+
+    <form id ="loginform" class="form-signin" action="login/login">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">User Name</label>
         <input type="text" name="username" id="inputEmail" class="form-control" placeholder="User Name" required autofocus>
@@ -32,7 +71,7 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" onclick="test()">Sign in</button>
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3 social-login">
                 <h3 >not an account?</h3>
@@ -43,5 +82,9 @@
 
 
 </div> <!-- /container -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://v4.bootcss.com/assets/js/vendor/popper.min.js"></script>
+<script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
