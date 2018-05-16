@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,32 @@ public class LoginCtrl {
             returnMap.put("success", map.get("success"));
         } catch (Exception e) {
             returnMap.put("message", "异常：登录失败!");
+            returnMap.put("success", false);
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
+    @RequestMapping(value="/update",method= RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> update(HttpServletRequest request, String username,String realname ,String password, String tel, String email,String role){
+
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+        try {
+            role = new String(role.getBytes("8859_1"), "utf8");
+            realname = new String(realname.getBytes("8859_1"), "utf8");
+            Map<String,Object> map = loginService.update(username,realname, password,tel,email,role);
+            //获取user实体
+            Object object = map.get("value");
+            if(object != null){
+                UserEntity user = (UserEntity) object;
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", user.getId());
+            }
+            returnMap.put("value", object);
+            returnMap.put("message", map.get("message"));
+            returnMap.put("success", map.get("success"));
+        } catch (Exception e) {
+            returnMap.put("message", "异常：更新失败!");
             returnMap.put("success", false);
             e.printStackTrace();
         }

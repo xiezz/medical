@@ -55,18 +55,20 @@
             <list>
                 <value>classpath*:/com/xie/work/domain/ArticleEntity.hbm.xml</value>
                 <value>classpath*:/com/xie/work/domain/CommentEntity.hbm.xml</value>
-                <value>classpath*:/com/xie/work/domain/OrderEntity.hbm.xml</value>
-                <value>classpath*:/com/xie/work/domain/UseinfoEntity.hbm.xml</value>
                 <value>classpath*:/com/xie/work/domain/UserEntity.hbm.xml</value>
+                <value>classpath*:com/xie/work/domain/RequestEntity.hbm.xml</value>
+                <value>classpath*:com/xie/work/domain/TeamEntity.hbm.xml</value>
+                <value>classpath*:com/xie/work/domain/TeamUserEntity.hbm.xml</value>
             </list>
         </property>
         <property name="annotatedClasses">
             <list>
                 <value>com.xie.work.domain.ArticleEntity</value>
                 <value>com.xie.work.domain.CommentEntity</value>
-                <value>com.xie.work.domain.OrderEntity</value>
-                <value>com.xie.work.domain.UseinfoEntity</value>
                 <value>com.xie.work.domain.UserEntity</value>
+                <value>com.xie.work.domain.RequestEntity</value>
+                <value>com.xie.work.domain.TeamEntity</value>
+                <value>com.xie.work.domain.TeamUserEntity</value>
             </list>
         </property>
     </bean>

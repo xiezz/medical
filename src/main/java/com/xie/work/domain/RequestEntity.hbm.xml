@@ -4,12 +4,12 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.xie.work.domain.ArticleEntity" table="article" schema="platform">
-        <id name="aid" column="aid"/>
-        <property name="title" column="title"/>
+    <class name="com.xie.work.domain.RequestEntity" table="request" schema="platform">
+        <id name="qid" column="qid"/>
+        <property name="reqUser" column="req_user"/>
+        <property name="teamId" column="team_id"/>
         <property name="content" column="content"/>
         <property name="createTime" column="create_time"/>
-        <property name="userId" column="user_id"/>
-        <property name="type" column="type"/>
+        <property name="state" column="state"/>
     </class>
 </hibernate-mapping>

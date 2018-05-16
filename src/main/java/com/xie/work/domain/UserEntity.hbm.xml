@@ -4,27 +4,13 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.xie.work.domain.UserEntity" table="user" schema="medical">
-        <id name="id">
-            <column name="id" sql-type="bigint(11)"/>
-        </id>
-        <property name="realname">
-            <column name="realname" sql-type="varchar(25)" length="25" not-null="true"/>
-        </property>
-        <property name="username">
-            <column name="username" sql-type="varchar(25)" length="25" not-null="true"/>
-        </property>
-        <property name="password">
-            <column name="password" sql-type="varchar(25)" length="25" not-null="true"/>
-        </property>
-        <property name="email">
-            <column name="email" sql-type="varchar(25)" length="25" not-null="true"/>
-        </property>
-        <property name="history">
-            <column name="history" sql-type="varchar(25)" length="25" not-null="true"/>
-        </property>
-        <property name="infoId">
-            <column name="info_id" sql-type="bigint(11)" not-null="true"/>
-        </property>
+    <class name="com.xie.work.domain.UserEntity" table="user" schema="platform">
+        <id name="id" column="id"/>
+        <property name="realname" column="realname"/>
+        <property name="username" column="username"/>
+        <property name="password" column="password"/>
+        <property name="email" column="email"/>
+        <property name="tel" column="tel"/>
+        <property name="role" column="role"/>
     </class>
 </hibernate-mapping>

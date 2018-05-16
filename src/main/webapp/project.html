@@ -27,17 +27,17 @@
             <li class="nav-item" active>
                 <a class="nav-link" href="index.html">首页</a>
             </li>
-            <li class="nav-item" active>
-                <a class="nav-link" href="information.html">竞赛资讯</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="information.html">竞赛资讯<span class="sr-only"></span></a>
             </li>
             <li class="nav-item" active>
                 <a class="nav-link" href="group.html">竞赛组队</a>
             </li>
             <li class="nav-item" active>
                 <a class="nav-link" href="discuss.html">竞赛讨论</a>
-               </li>
+            </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心<span class="sr-only"></span></a>
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="usercenter.html">个人信息</a>
                     <a class="dropdown-item" href="project.html">项目进度</a>
@@ -59,9 +59,9 @@
 <link rel="stylesheet" type="text/css" href="css/css.css" />
 <div class="jumbotron">
     <div class="container">
-        <h1 class="display-3">欢迎登录校园竞赛系统!</h1>
-        <p>请尽快修改初始密码并且完善个人信息，以确保账号安全与方便项目组成员之间的联系。</p>
-        <p><a class="btn btn-primary btn-lg" href="/update.html" role="button">修改信息 &raquo;</a></p>
+        <h1 class="display-3">Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
     </div>
 </div>
 
@@ -69,33 +69,18 @@
     <!-- Example row of columns -->
     <div class="row">
         <div class="col-md-4">
-            <ul class="list-group">
-                <div class="list-group">
-                        <h4 class="list-group-item-heading">真实姓名：</h4>
-                        <p class="list-group-item-text" id="realname"></p>
-                </div>
-                <div class="list-group">
-                    <h4 class="list-group-item-heading">用户名/学号：</h4>
-                    <p class="list-group-item-text" id="username"></p>
-                </div>
-                <div class="list-group">
-                    <h4 class="list-group-item-heading">手机号码：</h4>
-                    <p class="list-group-item-text" id="tel"></p>
-                </div>
-            </ul>
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
-            <div class="list-group">
-                <h4 class="list-group-item-heading">电子邮箱：</h4>
-                <p class="list-group-item-text" id="email"></p>
-            </div>
-            <div class="list-group">
-                <h4 class="list-group-item-heading">职业：</h4>
-                <p class="list-group-item-text" id="role"></p>
-            </div>
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
         </div>
         <div class="col-md-4">
-            <p><button class="btn btn-secondary" id="logpout">退出登录 &raquo;</button></p>
+            <h2>Heading</h2>
+            <p>Donec sed"btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
         </div>
     </div>
 
@@ -126,32 +111,13 @@
         }
         return false;
     }
-    //删除cookie
-    function delCookie(name){
-        var exp = new Date();
-        exp.setTime(exp.getTime() - 1);
-        var cval = getCookie(name);
-        if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
-    }
 
     window.onload =function(){
         if(getCookie("admin")!= false) {
             var personObject = JSON.parse(getCookie("admin"))
             document.getElementById("btn").innerHTML =personObject.value.realname;
-            document.getElementById("realname").innerHTML=personObject.value.realname;
-            document.getElementById("username").innerHTML=personObject.value.username;
-            document.getElementById("tel").innerHTML=personObject.value.tel;
-            document.getElementById("email").innerHTML=personObject.value.email;
-            document.getElementById("role").innerHTML=personObject.value.role;
             document.getElementById("btn").disabled=true;
-        }else {
-            alert("请先登录");
-            window.location.href="/login.html";
         }}
-    $('#logpout').click(function () {
-        delCookie("admin");
-        window.location.href="/index.html";
-    })
 </script>
 </body>
 </html>

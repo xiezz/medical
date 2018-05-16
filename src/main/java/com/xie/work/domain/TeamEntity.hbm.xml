@@ -4,11 +4,11 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.xie.work.domain.CommentEntity" table="comment" schema="platform">
-        <id name="cid" column="cid"/>
-        <property name="content" column="content"/>
+    <class name="com.xie.work.domain.TeamEntity" table="team" schema="platform">
+        <id name="tid" column="tid"/>
+        <property name="teamName" column="team_name"/>
+        <property name="num" column="num"/>
+        <property name="slogan" column="slogan"/>
         <property name="createTime" column="create_time"/>
-        <property name="userId" column="user_id"/>
-        <property name="articleId" column="article_id"/>
     </class>
 </hibernate-mapping>

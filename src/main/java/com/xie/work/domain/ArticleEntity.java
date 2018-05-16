@@ -1,37 +1,30 @@
 package com.xie.work.domain;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-/**
- * Created by xiezhongzheng on 2017/8/10.
- */
 @Entity
-@Table(name = "article", schema = "medical", catalog = "")
+@Table(name = "article", schema = "platform", catalog = "")
 public class ArticleEntity {
-    private long id;
+    private long aid;
     private String title;
     private String content;
-    private String attachments;
-    private Long authorId;
     private Timestamp createTime;
-    private Timestamp modifyTime;
-    private Long hits;
-    private BigDecimal price;
+    private Long userId;
+    private Integer type;
 
     @Id
-    @Column(name = "id", nullable = false)
-    public long getId() {
-        return id;
+    @Column(name = "aid")
+    public long getAid() {
+        return aid;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAid(long aid) {
+        this.aid = aid;
     }
 
     @Basic
-    @Column(name = "title", nullable = true, length = 25)
+    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -41,7 +34,7 @@ public class ArticleEntity {
     }
 
     @Basic
-    @Column(name = "content", nullable = true, length = 25)
+    @Column(name = "content")
     public String getContent() {
         return content;
     }
@@ -51,27 +44,7 @@ public class ArticleEntity {
     }
 
     @Basic
-    @Column(name = "attachments", nullable = true, length = 25)
-    public String getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(String attachments) {
-        this.attachments = attachments;
-    }
-
-    @Basic
-    @Column(name = "author_id", nullable = true)
-    public Long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
-    @Basic
-    @Column(name = "create_time", nullable = true)
+    @Column(name = "create_time")
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -81,33 +54,23 @@ public class ArticleEntity {
     }
 
     @Basic
-    @Column(name = "modify_time", nullable = true)
-    public Timestamp getModifyTime() {
-        return modifyTime;
+    @Column(name = "user_id")
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setModifyTime(Timestamp modifyTime) {
-        this.modifyTime = modifyTime;
-    }
-
-    @Basic
-    @Column(name = "hits", nullable = true)
-    public Long getHits() {
-        return hits;
-    }
-
-    public void setHits(Long hits) {
-        this.hits = hits;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Basic
-    @Column(name = "price", nullable = true, precision = 2)
-    public BigDecimal getPrice() {
-        return price;
+    @Column(name = "type")
+    public Integer getType() {
+        return type;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     @Override
@@ -117,30 +80,24 @@ public class ArticleEntity {
 
         ArticleEntity that = (ArticleEntity) o;
 
-        if (id != that.id) return false;
+        if (aid != that.aid) return false;
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
-        if (attachments != null ? !attachments.equals(that.attachments) : that.attachments != null) return false;
-        if (authorId != null ? !authorId.equals(that.authorId) : that.authorId != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
-        if (modifyTime != null ? !modifyTime.equals(that.modifyTime) : that.modifyTime != null) return false;
-        if (hits != null ? !hits.equals(that.hits) : that.hits != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
+        int result = (int) (aid ^ (aid >>> 32));
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (attachments != null ? attachments.hashCode() : 0);
-        result = 31 * result + (authorId != null ? authorId.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
-        result = 31 * result + (modifyTime != null ? modifyTime.hashCode() : 0);
-        result = 31 * result + (hits != null ? hits.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 }

@@ -13,4 +13,7 @@ public interface ILoginService {
     //注册
     public Map<String,Object> register(String username, String password, String tel, String email) throws Exception;
 
+    //修改信息
+        public Map<String,Object> update(String username,String realname ,String password, String tel, String email,String role) throws Exception;
+
 }

@@ -15,6 +15,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/css.css" rel="stylesheet">
+    <script src="js/jq/jquery-2.1.1.min.js"></script>
+
 </head>
 <body>
 
@@ -42,9 +44,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">个人信息</a>
-                    <a class="dropdown-item" href="#">项目进度</a>
-                    <a class="dropdown-item" href="#">评价系统</a>
+                    <a class="dropdown-item" href="usercenter.html">个人信息</a>
+                    <a class="dropdown-item" href="project.html">项目进度</a>
+                    <a class="dropdown-item" href="evaluate.html">评价系统</a>
                 </div>
             </li>
         </ul>
@@ -53,7 +55,7 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
         </form>
         <form class="form-inline my-2 my-lg-0">
-            <input type="button" onclick="window.location='login.html'"class="btn btn-outline-success my-2 my-sm-0" value="登陆/注册"/></button>
+            <button  id="btn" type="button" onclick="window.location='/login.html'"class="btn btn-outline-success my-2 my-sm-0"  />登录/注册</button>
         </form>
     </div>
 </nav>
@@ -189,5 +191,29 @@
 <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://v4.bootcss.com/assets/js/vendor/popper.min.js"></script>
 <script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
+<script src="js/jq/jquery.min.js" />
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://v4.bootcss.com/assets/js/vendor/popper.min.js"></script>
+<script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function getCookie(key) {
+        var cookieArr = document.cookie.split('; ');
+        for(var i = 0; i < cookieArr.length; i++) {
+            var arr = cookieArr[i].split('=');
+            if(arr[0] === key) {
+                return arr[1];
+            }
+        }
+        return false;
+    }
+
+    window.onload =function(){
+        if(getCookie("admin")!= false) {
+            var personObject = JSON.parse(getCookie("admin"))
+            document.getElementById("btn").innerHTML =personObject.value.realname;
+            document.getElementById("btn").disabled=true;
+        }}
+</script>
 </body>
 </html>

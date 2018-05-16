@@ -65,4 +65,30 @@ public class LoginServiceImpl implements ILoginService  {
         }
     }
 
-}  
+    public Map<String, Object> update(String username,String realname,String password,String tel, String email, String role) throws Exception {
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+
+        String hql = "from UserEntity u where u.username='"+username+"'";
+        UserEntity user = new UserEntity();
+        try {
+            user = userDao.findOne(hql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(user != null){
+            user.setRealname(realname);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setRole(role);
+            user.setTel(Long.valueOf(tel));
+            userDao.update(user);
+            returnMap.put("value", user);
+            returnMap.put("message", "信息更新成功！");
+            returnMap.put("success", true);
+        }else{
+            returnMap.put("message", "该用户不存在!");
+            returnMap.put("success", false);
+        }
+        return returnMap;
+    }
+}

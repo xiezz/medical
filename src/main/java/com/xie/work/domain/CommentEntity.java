@@ -1,40 +1,49 @@
 package com.xie.work.domain;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
-/**
- * Created by xiezhongzheng on 2017/8/10.
- */
 @Entity
-@Table(name = "comment", schema = "medical", catalog = "")
+@Table(name = "comment", schema = "platform", catalog = "")
 public class CommentEntity {
-    private long id;
-    private Long articleId;
-    private Long userId;
+    private long cid;
     private String content;
+    private Timestamp createTime;
+    private Long userId;
+    private Long articleId;
 
     @Id
-    @Column(name = "id", nullable = false)
-    public long getId() {
-        return id;
+    @Column(name = "cid")
+    public long getCid() {
+        return cid;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "article_id", nullable = true)
-    public Long getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(Long articleId) {
-        this.articleId = articleId;
+    public void setCid(long cid) {
+        this.cid = cid;
     }
 
     @Basic
-    @Column(name = "user_id", nullable = true)
+    @Column(name = "content")
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Basic
+    @Column(name = "create_time")
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    @Basic
+    @Column(name = "user_id")
     public Long getUserId() {
         return userId;
     }
@@ -44,13 +53,13 @@ public class CommentEntity {
     }
 
     @Basic
-    @Column(name = "content", nullable = true, length = 100)
-    public String getContent() {
-        return content;
+    @Column(name = "article_id")
+    public Long getArticleId() {
+        return articleId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
     }
 
     @Override
@@ -60,20 +69,22 @@ public class CommentEntity {
 
         CommentEntity that = (CommentEntity) o;
 
-        if (id != that.id) return false;
-        if (articleId != null ? !articleId.equals(that.articleId) : that.articleId != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+        if (cid != that.cid) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
+        if (articleId != null ? !articleId.equals(that.articleId) : that.articleId != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (articleId != null ? articleId.hashCode() : 0);
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        int result = (int) (cid ^ (cid >>> 32));
         result = 31 * result + (content != null ? content.hashCode() : 0);
+        result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (articleId != null ? articleId.hashCode() : 0);
         return result;
     }
 }

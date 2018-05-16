@@ -2,22 +2,19 @@ package com.xie.work.domain;
 
 import javax.persistence.*;
 
-/**
- * Created by xiezhongzheng on 2017/8/10.
- */
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "platform", catalog = "")
 public class UserEntity {
     private long id;
     private String realname;
     private String username;
     private String password;
     private String email;
-    private String history;
-    private Long infoId;
+    private Long tel;
+    private String role;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public long getId() {
         return id;
     }
@@ -27,7 +24,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "realname", nullable = true, length = 25)
+    @Column(name = "realname")
     public String getRealname() {
         return realname;
     }
@@ -37,7 +34,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "username", nullable = true, length = 25)
+    @Column(name = "username")
     public String getUsername() {
         return username;
     }
@@ -47,7 +44,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "password", nullable = true, length = 25)
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -57,7 +54,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = true, length = 25)
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -67,23 +64,23 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "history", nullable = true, length = 25)
-    public String getHistory() {
-        return history;
+    @Column(name = "tel")
+    public Long getTel() {
+        return tel;
     }
 
-    public void setHistory(String history) {
-        this.history = history;
+    public void setTel(Long tel) {
+        this.tel = tel;
     }
 
     @Basic
-    @Column(name = "info_id", nullable = true)
-    public Long getInfoId() {
-        return infoId;
+    @Column(name = "role")
+    public String getRole() {
+        return role;
     }
 
-    public void setInfoId(Long infoId) {
-        this.infoId = infoId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
@@ -98,8 +95,8 @@ public class UserEntity {
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (history != null ? !history.equals(that.history) : that.history != null) return false;
-        if (infoId != null ? !infoId.equals(that.infoId) : that.infoId != null) return false;
+        if (tel != null ? !tel.equals(that.tel) : that.tel != null) return false;
+        if (role != null ? !role.equals(that.role) : that.role != null) return false;
 
         return true;
     }
@@ -111,8 +108,8 @@ public class UserEntity {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (history != null ? history.hashCode() : 0);
-        result = 31 * result + (infoId != null ? infoId.hashCode() : 0);
+        result = 31 * result + (tel != null ? tel.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 }

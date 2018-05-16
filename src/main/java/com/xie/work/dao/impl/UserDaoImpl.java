@@ -1,6 +1,5 @@
 package com.xie.work.dao.impl;
 
-import com.xie.work.dao.impl.BaseDaoImpl;
 import com.xie.work.dao.IUserDao;
 import com.xie.work.domain.UserEntity;
 import org.springframework.stereotype.Component;

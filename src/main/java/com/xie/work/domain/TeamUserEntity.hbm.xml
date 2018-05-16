@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.xie.work.domain.TeamUserEntity" table="team_user" schema="platform">
+        <id name="teamId" column="team_id"/>
+        <property name="userId" column="user_id"/>
+        <property name="leader" column="leader"/>
+        <property name="role" column="role"/>
+    </class>
+</hibernate-mapping>
