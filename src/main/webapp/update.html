@@ -85,61 +85,70 @@
 
 
 </div> <!-- /container -->
-<script src="js/jq/jquery.min.js" />
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="js/jq/jquery.min.js"/>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
 <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://v4.bootcss.com/assets/js/vendor/popper.min.js"></script>
 <script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $('#updateBtn').click(function () {
-        $.ajax({
-            //几个参数需要注意一下
-            type: "get",//方法类型
-            dataType: "json",//预期服务器返回的数据类型
-            url: "/login/update" ,//url
-            data: $('#updateform').serialize(),
-            success: function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
-                alert(result.message);
-                if (result.message == "更新成功") {
-                    window.location.href="/index.html";
-                };
-                var oDate = new Date();
-                oDate.setDate(oDate.getDate() + 1);
-                document.cookie = "admin" + '=' + JSON.stringify(result) + ';expires=' + oDate;
-            },
-            error : function() {
-             //   alert("异常！");
-            }
-        });
-    })
-    $('#cancel').click(function () {
-        window.location.href="usercenter.html";
-    })
-    function getCookie(key) {
-        var cookieArr = document.cookie.split('; ');
-        for(var i = 0; i < cookieArr.length; i++) {
-            var arr = cookieArr[i].split('=');
-            if(arr[0] === key) {
-                return arr[1];
-            }
+<script type="text/javascript">    $('#cancel').click(function () {
+    window.location.href = "/usercenter.html";
+})
+$('#updateBtn').click(function () {
+    $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "/login/update" ,
+        data: $('#updateform').serialize(),
+        async :false,
+        success: function (result) {
+            console.log(result);
+            alert(result.message+"请重新登录");
+            delCookie("admin");
+            window.location.href = "/login.html";
+        },
+        error : function() {
+            alert("异常！");
         }
-        return false;
+    });
+})
+//删除cookie
+function delCookie(name){
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie(name);
+    if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+}
+function getCookie(key) {
+    var cookieArr = document.cookie.split('; ');
+    for (var i = 0; i < cookieArr.length; i++) {
+        var arr = cookieArr[i].split('=');
+        if (arr[0] === key) {
+            return arr[1];
+        }
     }
-    window.onload =function(){
-        if(getCookie("admin")!= false) {
-            var personObject = JSON.parse(getCookie("admin"))
-            console.log(personObject.value.email);
-            document.getElementById("btn").innerHTML =personObject.value.realname;
-            document.getElementById("realname").value=personObject.value.realname;
-            document.getElementById("username").value=personObject.value.username;
-            document.getElementById("password").value=personObject.value.password;
-            document.getElementById("tel").value=personObject.value.tel;
-            document.getElementById("email").value=personObject.value.email;
-            document.getElementById("role").value=personObject.value.role;
-            document.getElementById("btn").disabled=true;
-        }}
-</script>
+    return false;
+}
 
+window.onload = function () {
+    if (getCookie("admin") != false) {
+        var personObject = JSON.parse(getCookie("admin"))
+        console.log(personObject.message);
+        document.getElementById("btn").innerHTML = personObject.value.realname;
+        document.getElementById("realname").value = personObject.value.realname;
+        document.getElementById("username").value = personObject.value.username;
+        document.getElementById("password").value = personObject.value.password;
+        document.getElementById("tel").value = personObject.value.tel;
+        document.getElementById("email").value = personObject.value.email;
+        document.getElementById("role").value = personObject.value.role;
+        document.getElementById("btn").disabled = true;
+    } else
+    {
+        alert("请先登录");
+        window.location.href = "/login.html";
+    }
+}
+</script>
 </body>
 </html>

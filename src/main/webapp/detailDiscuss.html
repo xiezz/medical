@@ -57,7 +57,7 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
         </form>
         <form class="form-inline my-2 my-lg-0">
-            <button  id="btn" type="button" onclick="window.location='/login.html'"class="btn btn-outline-success my-2 my-sm-0"  />登录/注册</button>
+            <button id="btn" type="button" onclick="window.location='/login.html'" class="btn btn-outline-success my-2 my-sm-0"  />登录/注册</button>
         </form>
     </div>
 </nav>
@@ -68,13 +68,14 @@
 <main role="main" class="container">
 
     <div class="my-3 p-3 bg-white rounded box-shadow" >
-        <h6 class="border-bottom border-gray pb-2 mb-0">竞赛讨论</h6>
+        <h6 class="border-bottom border-gray pb-2 mb-0">文章</h6>
         <div class="media text-muted pt-3">
             <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                 <div class="d-flex justify-content-between align-items-center w-100">
-                    <strong class="text-gray-dark">欢迎每位同学加入竞赛的讨论，在这里你可以针对竞赛遇到的瓶颈提问，也可以分享竞赛的经验，也可以推销自己加入别人的战队。所以快快发帖和回复吧！</strong>
+                    <strong class="text-gray-dark" id="title"></strong>
                     <a href="createDiscuss.html">我要发帖</a>
                 </div>
+                <span class=\"d-block\" ></span>
             </div>
         </div>
     </div>
@@ -126,9 +127,7 @@
                             "<div class=\"media-body pb-3 mb-0 small lh-125 border-bottom border-gray\">\n  " +
                             "<div class=\"d-flex justify-content-between align-items-center w-100\">\n" +
                             "<strong class=\"d-block text-gray-dark\">" + arr[i].title + " </strong>" +
-                            "<a href=\"detailDiscuss.html?aid=" +
-                            ""+ arr[i].aid+ "" +
-                            "\">详情/评论</a>" +
+                            "<a href=\"\">详情/评论</a>" +
                             "</div> " +
                             "<span class=\"d-block\">" + arr[i].content + "</span>\n" +
                             "</div></div>";

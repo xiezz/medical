@@ -61,24 +61,20 @@
     <div style="height:50px;">
 
     </div>
-    <form id ="loginform" class="form-signin" action="##" method="get">
-        <h2 class="form-signin-heading" align="center">登录</h2>
-        <label for="inputEmail" class="sr-only">用户名</label>
-        用户名<input type="text" name="username" id="inputEmail" class="form-control" placeholder="User Name" required autofocus>
-        <label for="inputPassword" class="sr-only">密码</label>
-        密码 <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> 请记住我
-            </label>
-        </div>
-        <button id="loginBtn" class="btn btn-lg btn-primary btn-block" >登录</button>
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3 social-login">
-                <h3 >not an account?</h3>
-                <span>click to <a href="./signup.html"><strong>sign up</strong></a></span>
-            </div>
-        </div>
+    <form id ="discussform" class="form-signin" action="##" method="get">
+        <h2 class="form-signin-heading" align="center">新增讨论帖</h2>
+        <label for="title" class="sr-only">标题</label>
+        标题<input type="text" name="title" id="title" class="form-control"  required autofocus>
+
+        内容  <div class="form-group">
+        <label for="content" class="sr-only">内容</label>
+        <textarea class="form-control"  name="content"  id="content" rows="3"></textarea>
+    </div>
+        <label for="user_id" class="sr-only">用户</label>
+        <input hidden  id="user_id" name="user_id">
+
+        <button id="createBtn" class="btn btn-lg btn-primary btn-block" >发布</button>
+        <button id="cancel" class="btn btn-lg btn-primary btn-block" >取消</button>
     </form>
 
 
@@ -89,20 +85,17 @@
 <script src="https://v4.bootcss.com/assets/js/vendor/popper.min.js"></script>
 <script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-    $('#loginBtn').click(function () {
+    $('#createBtn').click(function () {
         $.ajax({
             //几个参数需要注意一下
             type: "get",//方法类型
             dataType: "json",//预期服务器返回的数据类型
-            url: "/login/login" ,//url
-            data: $('#loginform').serialize(),
+            url: "/article/createDiscuss" ,//url
+            data: $('#discussform').serialize(),
             async :false,
             success: function (result) {
                 console.log(result);//打印服务端返回的数据(调试用)
                 alert(result.message);
-                var oDate = new Date();
-                oDate.setDate(oDate.getDate() + 1);
-                document.cookie = "admin" + '=' + JSON.stringify(result) + ';expires=' + oDate;
             },
             error : function(error) {
                 console.log(error);
@@ -125,7 +118,10 @@
         var personObject = JSON.parse(getCookie("admin"))
         document.getElementById("btn").innerHTML =personObject.value.realname;
         document.getElementById("btn").disabled=true;
-        window.location.href="/index.html";
+        document.getElementById("user_id").value=personObject.value.id;
+    }else {
+        alert("请先登录");
+        window.location.href="/login.html";
     }}
 </script>
 
