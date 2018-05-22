@@ -5,13 +5,24 @@ import javax.persistence.*;
 @Entity
 @Table(name = "team_user", schema = "platform", catalog = "")
 public class TeamUserEntity {
+    private Long id;
     private Long teamId;
     private Long userId;
     private Integer leader;
     private String role;
 
     @Id
-    @Column(name = "team_id")
+    @Column(name = "id")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Basic
+    @Column(name =  "team_id")
     public Long getTeamId() {
         return teamId;
     }
