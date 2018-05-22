@@ -9,7 +9,7 @@ public class ArticleEntity {
     private long aid;
     private String title;
     private String content;
-    private Timestamp createTime;
+    private String createTime;
     private Long userId;
     private Integer type;
 
@@ -45,11 +45,11 @@ public class ArticleEntity {
 
     @Basic
     @Column(name = "create_time")
-    public Timestamp getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

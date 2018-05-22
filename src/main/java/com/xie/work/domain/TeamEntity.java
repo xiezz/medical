@@ -7,10 +7,11 @@ import java.sql.Timestamp;
 @Table(name = "team", schema = "platform", catalog = "")
 public class TeamEntity {
     private long tid;
+    private Long uuid;
     private String teamName;
     private Integer num;
     private String slogan;
-    private Timestamp createTime;
+    private String createTime;
 
     @Id
     @Column(name = "tid")
@@ -20,6 +21,16 @@ public class TeamEntity {
 
     public void setTid(long tid) {
         this.tid = tid;
+    }
+
+    @Basic
+    @Column(name = "uuid")
+    public Long getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(Long uuid) {
+        this.uuid = uuid;
     }
 
     @Basic
@@ -54,11 +65,11 @@ public class TeamEntity {
 
     @Basic
     @Column(name = "create_time")
-    public Timestamp getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -70,6 +81,7 @@ public class TeamEntity {
         TeamEntity that = (TeamEntity) o;
 
         if (tid != that.tid) return false;
+        if (uuid != null ? !uuid.equals(that.uuid) : that.uuid != null) return false;
         if (teamName != null ? !teamName.equals(that.teamName) : that.teamName != null) return false;
         if (num != null ? !num.equals(that.num) : that.num != null) return false;
         if (slogan != null ? !slogan.equals(that.slogan) : that.slogan != null) return false;
@@ -81,6 +93,7 @@ public class TeamEntity {
     @Override
     public int hashCode() {
         int result = (int) (tid ^ (tid >>> 32));
+        result = 31 * result + (uuid != null ? uuid.hashCode() : 0);
         result = 31 * result + (teamName != null ? teamName.hashCode() : 0);
         result = 31 * result + (num != null ? num.hashCode() : 0);
         result = 31 * result + (slogan != null ? slogan.hashCode() : 0);

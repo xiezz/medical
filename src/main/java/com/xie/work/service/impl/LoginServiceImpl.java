@@ -44,6 +44,28 @@ public class LoginServiceImpl implements ILoginService  {
         return returnMap;
     }
 
+    public Map<String, Object> findOneUser(Long id) throws Exception {
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+
+        String hql = "from UserEntity u where u.id='"+id+"'";
+        UserEntity user = new UserEntity();
+        try {
+            user = userDao.findOne(hql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            if(user!=null){
+                returnMap.put("value", user);
+                returnMap.put("message", "查找成功");
+                returnMap.put("success", true);
+
+        }else{
+            returnMap.put("message", "该用户不存在!");
+            returnMap.put("success", false);
+        }
+        return returnMap;
+    }
+
     public Map<String, Object> register(String username, String password,String tel,String email) throws Exception {
         Map<String,Object> returnMap = new HashMap<String,Object>();
 

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://v4.bootcss.com/favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://v4.bootcss.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/login.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">校园竞赛管理平台</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" active>
+                    <a class="nav-link" href="index.html">首页</a>
+                </li>
+                <li class="nav-item" active>
+                    <a class="nav-link" href="information.html">竞赛资讯</a>
+                </li>
+                <li class="nav-item" active>
+                    <a class="nav-link" href="group.html">竞赛组队</a>
+                </li>
+                <li class="nav-item" active>
+                    <a class="nav-link" href="discuss.html">竞赛讨论</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="usercenter.html">个人信息</a>
+                        <a class="dropdown-item" href="#">项目进度</a>
+                        <a class="dropdown-item" href="#">评价系统</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+            <form class="form-inline my-2 my-lg-0">
+                <button  id="btn" type="button" onclick="window.location='/login.html'"class="btn btn-outline-success my-2 my-sm-0"  />登录/注册</button>
+            </form>
+        </div>
+    </nav>
+
+    <div style="height:50px;">
+
+    </div>
+    <form id ="discussform" class="form-signin" action="##" method="get">
+        <h2 class="form-signin-heading" align="center">新增团队</h2>
+        <label for="teamName" class="sr-only">队名</label>
+        队名<input type="text" name="teamName" id="teamName" class="form-control"  required autofocus>
+        <label for="num" class="sr-only">人数</label>
+        人数<input type="number" name="num" id="num" class="form-control"  required autofocus>
+        简介  <div class="form-group">
+        <label for="slogan" class="sr-only">简介</label>
+        <textarea class="form-control"  name="slogan"  id="slogan" rows="3"></textarea>
+    </div>
+        <label for="user_id" class="sr-only">用户</label>
+        <input hidden  id="user_id" name="user_id">
+        <label for="team_id" class="sr-only">用户</label>
+        <input hidden  id="team_id" name="team_id">
+
+        <button id="createBtn" class="btn btn-lg btn-primary btn-block" >创建</button>
+        <button id="cancel" class="btn btn-lg btn-primary btn-block" >取消</button>
+    </form>
+
+
+</div> <!-- /container -->
+<script src="js/jq/jquery.min.js" />
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://v4.bootcss.com/assets/js/vendor/popper.min.js"></script>
+<script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('#createBtn').click(function () {
+        $.ajax({
+            //几个参数需要注意一下
+            type: "get",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/team/createTeam" ,//url
+            data: $('#discussform').serialize(),
+            async :false,
+            success: function (result) {
+                console.log(result);//打印服务端返回的数据(调试用)
+                console.log(result.value.tid);
+                alert(result.message);
+                window.location.href = "/detailTeam.html?"+result.value.tid+"";
+            },
+            error : function(error) {
+                console.log(error);
+                alert("异常！");
+            }
+        });
+    });
+    function uuid() {
+        var s = [];
+        var hexDigits = "0123456789";
+        for (var i = 0; i < 18; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[4] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+        s[9] = hexDigits.substr((s[9] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[8] = s[3] = Math.floor(Math.random() * 0x10);
+        var uuid = s.join("").substring(0,10);
+        return uuid;
+    }
+    function getCookie(key) {
+        var cookieArr = document.cookie.split('; ');
+        for(var i = 0; i < cookieArr.length; i++) {
+            var arr = cookieArr[i].split('=');
+            if(arr[0] === key) {
+                return arr[1];
+            }
+        }
+        return false;
+    }
+    window.onload =function(){
+    if(getCookie("admin")!= false) {
+        var personObject = JSON.parse(getCookie("admin"))
+        document.getElementById("btn").innerHTML =personObject.value.realname;
+        document.getElementById("btn").disabled=true;
+        document.getElementById("user_id").value=personObject.value.id;
+        document.getElementById("team_id").value=uuid();
+    }else {
+        alert("请先登录");
+        window.location.href="/login.html";
+    }}
+</script>
+
+</body>
+</html>

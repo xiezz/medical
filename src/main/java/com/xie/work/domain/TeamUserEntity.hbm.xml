@@ -5,7 +5,8 @@
 <hibernate-mapping>
 
     <class name="com.xie.work.domain.TeamUserEntity" table="team_user" schema="platform">
-        <id name="teamId" column="team_id"/>
+        <id name="id" column="id"/>
+        <property name="teamId" column="team_id"/>
         <property name="userId" column="user_id"/>
         <property name="leader" column="leader"/>
         <property name="role" column="role"/>

@@ -1,15 +1,13 @@
 package com.xie.work.service.impl;
 
-import com.xie.work.dao.IArticleDao;
 import com.xie.work.dao.ICommentDao;
-import com.xie.work.domain.ArticleEntity;
 import com.xie.work.domain.CommentEntity;
-import com.xie.work.service.IArticleService;
 import com.xie.work.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +33,7 @@ public class CommentServiceImpl implements ICommentService{
         Map<String,Object> returnMap = new HashMap<String,Object>();
         CommentEntity commentEntity= new CommentEntity();
         commentEntity.setContent(content);
-        commentEntity.setCreateTime(time);
+        commentEntity.setCreateTime(timeStr);
         commentEntity.setUserId(user_id);
         commentEntity.setArticleId(article_id);
         commentDao.save(commentEntity);
@@ -49,15 +47,19 @@ public class CommentServiceImpl implements ICommentService{
 
         Map<String,Object> returnMap = new HashMap<String,Object>();
 
-        String hql = "from CommentEntity where type = 1 and article_id ="+aid+"";
+        String hql = "from CommentEntity where  articleId ="+aid+"";
         List<CommentEntity> commentList = new ArrayList();
         try {
             commentList = commentDao.findList(hql);
+            for(CommentEntity comment:commentList ){
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                comment.setCreateTime(df.format(comment.getCreateTime()));
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(commentList.size() > 0) {
+        if(commentList.size()>0) {
             returnMap.put("value", commentList);
             returnMap.put("message", "获取列表成功");
             returnMap.put("success", true);

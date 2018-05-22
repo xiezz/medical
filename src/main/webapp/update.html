@@ -131,9 +131,8 @@ function getCookie(key) {
     return false;
 }
 
-window.onload = function () {
-    if (getCookie("admin") != false) {
-        var personObject = JSON.parse(getCookie("admin"))
+window.onload = function () {    $(window).load (function(){    if (getCookie("admin") != false) {
+        var personObject = JSON.parse(getCookie("admin"));
         console.log(personObject.message);
         document.getElementById("btn").innerHTML = personObject.value.realname;
         document.getElementById("realname").value = personObject.value.realname;

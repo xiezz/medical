@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +47,27 @@ public class LoginCtrl {
         }
         return returnMap;
     }
+
+    @RequestMapping(value="/user",method= RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> login(HttpServletRequest request, Long id){
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+
+        try {
+            Map<String,Object> map = loginService.findOneUser(id);
+            //获取user实体
+            Object object = map.get("value");
+            returnMap.put("value", object);
+            returnMap.put("message", map.get("message"));
+            returnMap.put("success", map.get("success"));
+        } catch (Exception e) {
+            returnMap.put("message", "异常：登录失败!");
+            returnMap.put("success", false);
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
+
     @RequestMapping(value="/update",method= RequestMethod.GET)
     @ResponseBody
     public Map<String,Object> update(HttpServletRequest request, String username,String realname ,String password, String tel, String email,String role){
