@@ -6,13 +6,13 @@ import java.util.Map;
 /**
  * Created by xiezhongzheng on 2017/8/9.
  */
-public interface ITeamUserService {
+public interface IEvaluateService {
 
     //创建关系
-    public Map<String,Object> createTeamUser( Long teamId,Long userId,Integer leader,String role,String teamName) throws Exception;
+    public Map<String,Object> createEvaluate(Long teamId, Long userId, Long mateId, Long score, String reason) throws Exception;
 
     //讨论列表
-    public Map<String,Object> findTeamUser(Long userId) throws Exception;
+    public Map<String,Object> findEvaluate(Long mateId) throws Exception;
 
     //讨论列表
     public Map<String,Object> findUserTeam(Long teamId) throws Exception;

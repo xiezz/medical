@@ -10,6 +10,7 @@
         <property name="content" column="content"/>
         <property name="createTime" column="create_time"/>
         <property name="userId" column="user_id"/>
+        <property name="teamId" column="team_id"/>
         <property name="type" column="type"/>
     </class>
 </hibernate-mapping>

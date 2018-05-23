@@ -14,6 +14,10 @@ public interface ITeamService {
     //讨论列表
     public Map<String,Object> findTeam(Long tid) throws Exception;
 
+
+    //讨论列表
+    public Map<String,Object> findOneTeam(Long teamId) throws Exception;
+
     //修改信息
     public Map<String,Object> update(String title, String content, Timestamp create_time, Long user_id, Integer type) throws Exception;
 

@@ -11,6 +11,9 @@ public interface IArticleService {
     //创建讨论
     public Map<String,Object> createDiscuss(String title, String content,Long user_id) throws Exception;
 
+    //创建队伍招募信息
+    public Map<String,Object> createTeam(String title, String content,Long user_id,Long teamId) throws Exception;
+
     //讨论列表
     public Map<String,Object> findDiscuss() throws Exception;
 

@@ -21,7 +21,8 @@
 <div class="container">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">校园竞赛管理平台</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -40,7 +41,8 @@
                     <a class="nav-link" href="discuss.html">竞赛讨论</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心</a>
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">个人中心</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                         <a class="dropdown-item" href="usercenter.html">个人信息</a>
                         <a class="dropdown-item" href="project.html">项目进度</a>
@@ -53,7 +55,9 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
             </form>
             <form class="form-inline my-2 my-lg-0">
-                <button  id="btn" type="button" onclick="window.location='/login.html'"class="btn btn-outline-success my-2 my-sm-0"  />登录/注册</button>
+                <button id="btn" type="button" onclick="window.location='/login.html'"
+                        class="btn btn-outline-success my-2 my-sm-0"/>
+                登录/注册</button>
             </form>
         </div>
     </nav>
@@ -61,25 +65,26 @@
     <div style="height:50px;">
 
     </div>
-    <form id ="updateform" class="form-signin" action="##" method="get">
+    <form id="updateform" class="form-signin" action="##" method="get">
         <h2 class="form-signin-heading" align="center">信息修改</h2>
         <label for="realname" class="sr-only">真实姓名</label>
         真实姓名： <input type="text" name="realname" id="realname" class="form-control" required autofocus>
         <label for="username" class="sr-only">用户名</label>
-        用户名:<input type="text" name="username" id="username" class="form-control" placeholder="User Name" required autofocus>
+        用户名:<input type="text" name="username" id="username" class="form-control" placeholder="User Name" required
+                   autofocus>
         <label for="password" class="sr-only">密码</label>
-        密码: <input type="password" name="password" id="password" class="form-control" placeholder="Password" required >
+        密码: <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
         <label for="email" class="sr-only">电子邮箱</label>
         电子邮箱： <input type="text" name="email" id="email" class="form-control" required autofocus>
         <label for="tel" class="sr-only">手机号码</label>
         手机号码： <input type="text" name="tel" id="tel" class="form-control" required autofocus>
         <label for="role" class="sr-only">职业</label>
-        职业： <input type="text" name="role" id="role" class="form-control"     required autofocus>
+        职业： <input type="text" name="role" id="role" class="form-control" required autofocus>
         <div style="height:20px;">
 
         </div>
-        <button id="updateBtn" class="btn btn-lg btn-primary btn-block" >修改</button>
-        <button id="cancel" class="btn btn-lg btn-primary btn-block" >取消</button>
+        <button id="updateBtn" class="btn btn-lg btn-primary btn-block">修改</button>
+        <button id="cancel" class="btn btn-lg btn-primary btn-block">取消</button>
 
     </form>
 
@@ -92,34 +97,38 @@
 <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 <script src="https://v4.bootcss.com/assets/js/vendor/popper.min.js"></script>
 <script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript">    $('#cancel').click(function () {
+<script type="text/javascript">
+    $('#cancel').click(function () {
     window.location.href = "/usercenter.html";
+    window.event.returnValue=false;
 })
 $('#updateBtn').click(function () {
     $.ajax({
         type: "get",
         dataType: "json",
-        url: "/login/update" ,
+        url: "/login/update",
         data: $('#updateform').serialize(),
-        async :false,
+        async: false,
         success: function (result) {
             console.log(result);
-            alert(result.message+"请重新登录");
+            alert(result.message + "请重新登录");
             delCookie("admin");
             window.location.href = "/login.html";
         },
-        error : function() {
+        error: function () {
             alert("异常！");
         }
     });
-})
+});
+
 //删除cookie
-function delCookie(name){
+function delCookie(name) {
     var exp = new Date();
     exp.setTime(exp.getTime() - 1);
     var cval = getCookie(name);
     if (cval != null) document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
+
 function getCookie(key) {
     var cookieArr = document.cookie.split('; ');
     for (var i = 0; i < cookieArr.length; i++) {
@@ -131,23 +140,24 @@ function getCookie(key) {
     return false;
 }
 
-window.onload = function () {    $(window).load (function(){    if (getCookie("admin") != false) {
-        var personObject = JSON.parse(getCookie("admin"));
-        console.log(personObject.message);
-        document.getElementById("btn").innerHTML = personObject.value.realname;
-        document.getElementById("realname").value = personObject.value.realname;
-        document.getElementById("username").value = personObject.value.username;
-        document.getElementById("password").value = personObject.value.password;
-        document.getElementById("tel").value = personObject.value.tel;
-        document.getElementById("email").value = personObject.value.email;
-        document.getElementById("role").value = personObject.value.role;
-        document.getElementById("btn").disabled = true;
-    } else
-    {
-        alert("请先登录");
-        window.location.href = "/login.html";
-    }
-}
+
+    $(window).load(function () {
+        if (getCookie("admin") != false) {
+            var personObject = JSON.parse(getCookie("admin"));
+            console.log(personObject.message);
+            document.getElementById("btn").innerHTML = personObject.value.realname;
+            document.getElementById("realname").value = personObject.value.realname;
+            document.getElementById("username").value = personObject.value.username;
+            document.getElementById("password").value = personObject.value.password;
+            document.getElementById("tel").value = personObject.value.tel;
+            document.getElementById("email").value = personObject.value.email;
+            document.getElementById("role").value = personObject.value.role;
+            document.getElementById("btn").disabled = true;
+        } else {
+            alert("请先登录");
+            window.location.href = "/login.html";
+        }
+    });
 </script>
 </body>
 </html>

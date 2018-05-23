@@ -27,17 +27,17 @@
             <li class="nav-item" active>
                 <a class="nav-link" href="index.html">首页</a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="information.html">竞赛资讯<span class="sr-only"></span></a>
+            <li class="nav-item" active>
+                <a class="nav-link" href="information.html">竞赛资讯</a>
             </li>
             <li class="nav-item" active>
                 <a class="nav-link" href="group.html">竞赛组队</a>
             </li>
             <li class="nav-item" active>
                 <a class="nav-link" href="discuss.html">竞赛讨论</a>
-            </li>
+               </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心</a>
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">个人中心<span class="sr-only"></span></a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="usercenter.html">个人信息</a>
                     <a class="dropdown-item" href="project.html">项目进度</a>
@@ -59,29 +59,19 @@
 <link rel="stylesheet" type="text/css" href="css/css.css" />
 <div class="jumbotron">
     <div class="container">
-        <h1 class="display-3">Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <h1 class="display-3">欢迎登录团队管理系统!</h1>
+        <p>在这里可以发布你的招募信息</p>
     </div>
 </div>
 
 <div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed"btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-        </div>
+    <form id ="userform" class="form-signin" action="##" method="get">
+        <label for="userId" class="sr-only">用户</label>
+        <input hidden  id="userId" name="userId">
+    </form>
+    <div class="my-3 p-3 bg-white rounded box-shadow" id="data">
+        <h6 class="border-bottom border-gray pb-2 mb-0">你的队伍</h6>
+    </div>
     </div>
 
     <hr>
@@ -117,7 +107,98 @@
             var personObject = JSON.parse(getCookie("admin"))
             document.getElementById("btn").innerHTML =personObject.value.realname;
             document.getElementById("btn").disabled=true;
-        }}
+            document.getElementById("userId").value=personObject.value.id;
+        }
+        $.ajax({
+            type: "get",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/team/getUserTeam" ,//url
+            data: $('#userform').serialize(),
+            async :false,
+            success:function(result){
+                var html = "";
+                console.log(result);
+                var arr = result.value;
+                if(arr!=null){
+                if(arr.length>0) {
+                    for (var i = 0; i < arr.length; i++) {
+                        html += "<div class=\"media text-muted pt-3\">\n" +
+                            "<div class=\"media-body pb-3 mb-0 small lh-125 border-bottom border-gray\">\n  " +
+                            "<div class=\"d-flex justify-content-between align-items-center w-100\">\n" +
+                            "<strong class=\"d-block text-gray-dark\">" + arr[i].teamName + " </strong>" +
+                            "<a href=\"detailTeam.html?teamId=" +
+                            "" + arr[i].teamId + "" +
+                            "\">队伍信息</a>" +
+                            "</div> " +
+                            "<span class=\"d-block\">" + arr[i].role + "</span>\n" +
+                            "<div><div>收到的入队请求：</div>";
+                        $.ajax({
+                            type: "get",//方法类型
+                            dataType: "json",//预期服务器返回的数据类型
+                            url: "/request/findRequest" ,//url
+                            data: 'teamId='+arr[i].teamId+'',
+                            async :false,
+                            success:function(result1){
+                                console.log(result1);
+                                if(result1.message=="获取列表成功"){
+                                    var arr = result1.value;
+                                        if(arr.length>0) {
+                                            for (var i = 0; i < arr.length; i++) {
+                                                html += "<table class=\"table\">\n" +
+                                                    "  <tbody>\n" +
+                                                    "    <tr>\n";
+                                                $.ajax({
+                                                    type:"get",
+                                                    url:"/login/user",
+                                                    data:'id='+arr[i].reqUser+'',
+                                                    async: false,
+                                                    success:function(result1){
+                                                        var username = result1.value.realname;
+                                                        html += "      <td >" + username+ "</td>\n";
+                                                    },
+                                                    error:function(error){
+                                                        alert(error.status+""+error.statusText);
+                                                    }
+                                                });
+                                                html += "      <td>" + arr[i].content + "</td>\n" +
+                                                    "      <td>" + arr[i].createTime + "</td>\n" +
+                                                    "      <td>" +
+                                                    "<button herf='http://www.baidu.com'>同意</button>" +
+                                                    "|" +
+                                                    "<button  herf='/'>拒绝</button>" +
+                                                    "</td>\n" +
+                                                    "  </tbody>\n" +
+                                                    "</table>";
+                                            }
+                                        }
+                                }
+                            },
+                            error:function(error){
+                                alert(error.status+""+error.statusText);
+                            }
+                            });
+                        html +="</div>" +
+                            "</div></div>";
+                    }
+                    document.getElementById("data").innerHTML += html;
+                    console.log(result);
+                    return false;
+                }else{
+                    html += "<div class=\"media text-muted pt-3\">\n" +
+                        "<div class=\"media-body pb-3 mb-0 small lh-125 border-bottom border-gray\">\n  " +
+                        "<div class=\"d-flex justify-content-between align-items-center w-100\">\n" +
+                        "<strong class=\"d-block text-gray-dark\">" + "没有找到你的队伍，可能还没参加的队伍" + " </strong>" +
+                        "</div> " +
+                        "</div></div>";
+                    document.getElementById("data").innerHTML += html;
+                }
+                }
+            },
+            error:function(error){
+                alert(error.status+""+error.statusText);
+            }
+        });
+      }
 </script>
 </body>
 </html>

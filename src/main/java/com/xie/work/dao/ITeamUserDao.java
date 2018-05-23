@@ -1,6 +1,5 @@
 package com.xie.work.dao;
 
-import com.xie.work.domain.TeamEntity;
 import com.xie.work.domain.TeamUserEntity;
 
 /**

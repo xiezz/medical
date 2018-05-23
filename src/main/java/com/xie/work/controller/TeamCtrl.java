@@ -1,7 +1,5 @@
 package com.xie.work.controller;
 
-import com.xie.work.domain.UserEntity;
-import com.xie.work.service.ILoginService;
 import com.xie.work.service.ITeamService;
 import com.xie.work.service.ITeamUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +35,7 @@ public class TeamCtrl {
             teamName = new String(teamName.getBytes("8859_1"), "utf8");
             slogan = new String(slogan.getBytes("8859_1"), "utf8");
             Map<String,Object> map = teamService.createTeam(team_id,teamName, num,slogan);
-            Map<String,Object> mapuser = teamUserService.createTeamUser(team_id,user_id, 1,"队长");
+            Map<String,Object> mapuser = teamUserService.createTeamUser(team_id,user_id, 1,"队长",teamName);
             Object object = map.get("value");
             Object objectuser = mapuser.get("value");
             returnMap.put("value", object);
@@ -53,4 +51,59 @@ public class TeamCtrl {
     }
 
 
+    @RequestMapping(value = "/getUserTeam", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getUserTeam(HttpServletRequest request, Long userId) {
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+
+        try {
+            Map<String, Object> map = teamUserService.findTeamUser(userId);
+            Object object = map.get("value");
+            returnMap.put("value", object);
+            returnMap.put("message", map.get("message"));
+            returnMap.put("success", map.get("success"));
+        } catch (Exception e) {
+            returnMap.put("message", "异常：失败!");
+            returnMap.put("success", false);
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
+    @RequestMapping(value = "/getTeamUser", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getTeamUser(HttpServletRequest request, Long teamId) {
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+
+        try {
+            Map<String, Object> map = teamUserService.findUserTeam(teamId);
+            Object object = map.get("value");
+            returnMap.put("value", object);
+            returnMap.put("message", map.get("message"));
+            returnMap.put("success", map.get("success"));
+        } catch (Exception e) {
+            returnMap.put("message", "异常：失败!");
+            returnMap.put("success", false);
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
+
+    @RequestMapping(value = "/findOneTeam", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> findOneTeam(HttpServletRequest request, Long teamId) {
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+
+        try {
+            Map<String, Object> map = teamService.findOneTeam(teamId);
+            Object object = map.get("value");
+            returnMap.put("value", object);
+            returnMap.put("message", map.get("message"));
+            returnMap.put("success", map.get("success"));
+        } catch (Exception e) {
+            returnMap.put("message", "异常：失败!");
+            returnMap.put("success", false);
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
 }

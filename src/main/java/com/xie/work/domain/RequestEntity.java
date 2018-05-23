@@ -10,7 +10,7 @@ public class RequestEntity {
     private Long reqUser;
     private Long teamId;
     private String content;
-    private Timestamp createTime;
+    private String createTime;
     private String state;
 
     @Id
@@ -55,11 +55,11 @@ public class RequestEntity {
 
     @Basic
     @Column(name = "create_time")
-    public Timestamp getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 

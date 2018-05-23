@@ -11,6 +11,7 @@ public class ArticleEntity {
     private String content;
     private String createTime;
     private Long userId;
+    private long teamId;
     private Integer type;
 
     @Id
@@ -62,6 +63,17 @@ public class ArticleEntity {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    @Basic
+    @Column(name = "team_id")
+    public long getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(long teamId) {
+        this.teamId = teamId;
+    }
+
 
     @Basic
     @Column(name = "type")

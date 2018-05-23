@@ -33,8 +33,30 @@ public class ArticleServiceImpl implements IArticleService{
         ArticleEntity articleEntity= new ArticleEntity();
         articleEntity.setContent(content);
         articleEntity.setTitle(title);
+        articleEntity.setTeamId(0);
         articleEntity.setCreateTime(timeStr);
         articleEntity.setType(1);
+        articleEntity.setUserId(user_id);
+        articleDao.save(articleEntity);
+        returnMap.put("value", articleEntity);
+        returnMap.put("message", "发布文章成功");
+        returnMap.put("success", true);
+        return returnMap;
+    }
+    public Map<String,Object> createTeam(String title, String content,Long user_id,Long teamId) throws Exception{
+        //获取当前时间
+        Timestamp time= new Timestamp(System.currentTimeMillis());//获取系统当前时间
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String timeStr = df.format(time);
+        time = Timestamp.valueOf(timeStr);
+
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+        ArticleEntity articleEntity= new ArticleEntity();
+        articleEntity.setContent(content);
+        articleEntity.setTitle(title);
+        articleEntity.setCreateTime(timeStr);
+        articleEntity.setType(2);
+        articleEntity.setTeamId(teamId);
         articleEntity.setUserId(user_id);
         articleDao.save(articleEntity);
         returnMap.put("value", articleEntity);

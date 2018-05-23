@@ -62,13 +62,13 @@
 
     </div>
     <form id ="discussform" class="form-signin" action="##" method="get">
-        <h2 class="form-signin-heading" align="center">新增讨论帖</h2>
-        <label for="title" class="sr-only">标题</label>
-        标题<input type="text" name="title" id="title" class="form-control"   autofocus>
+        <h2 class="form-signin-heading" align="center">新增评价</h2>
+        <label for="title" class="sr-only">评分（总分100）</label>
+        评分（总分100）<input type="text" name="title" id="title" class="form-control"   autofocus>
 
-        内容  <div class="form-group">
-        <label for="content" class="sr-only">内容</label>
-        <textarea class="form-control"  name="content"  id="content" rows="3"></textarea>
+        评语 <div class="form-group">
+        <label for="reason" class="sr-only">评语</label>
+        <textarea class="form-control"  name="reason"  id="reason" rows="3"></textarea>
     </div>
         <label for="user_id" class="sr-only">用户</label>
         <input hidden  id="user_id" name="user_id">
@@ -94,7 +94,7 @@
             //几个参数需要注意一下
             type: "get",//方法类型
             dataType: "json",//预期服务器返回的数据类型
-            url: "/article/createDiscuss" ,//url
+            url: "/evaluate/createEvaluate" ,//url
             data: $('#discussform').serialize(),
             async: false,
             success: function (result) {

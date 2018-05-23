@@ -124,7 +124,8 @@
                 success: function (result) {
                     console.log(result);//打印服务端返回的数据(调试用)
                     alert(result.message);
-                    window.location.href = "/detailDiscuss.html?aid="+aid+"";
+                    window.location.href = "/discuss.html";
+                    window.event.returnValue=false;
                 },
                 error: function (error) {
                     console.log(error);

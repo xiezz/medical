@@ -64,13 +64,19 @@
     <form id ="discussform" class="form-signin" action="##" method="get">
         <h2 class="form-signin-heading" align="center">新增团队</h2>
         <label for="teamName" class="sr-only">队名</label>
-        队名<input type="text" name="teamName" id="teamName" class="form-control"  required autofocus>
+        队名<input type="text" name="teamName" id="teamName" class="form-control"   autofocus>
         <label for="num" class="sr-only">人数</label>
-        人数<input type="number" name="num" id="num" class="form-control"  required autofocus>
+        人数<input type="number" name="num" id="num" class="form-control"   autofocus>
         简介  <div class="form-group">
         <label for="slogan" class="sr-only">简介</label>
         <textarea class="form-control"  name="slogan"  id="slogan" rows="3"></textarea>
-    </div>
+        </div>
+        <label for="title" class="sr-only">招募信息标题</label>
+        招募信息标题<input type="text" name="title" id="title" class="form-control"   autofocus>
+        招募信息内容  <div class="form-group">
+        <label for="content" class="sr-only">招募信息内容</label>
+        <textarea class="form-control"  name="content"  id="content" rows="3"></textarea>
+        </div>
         <label for="user_id" class="sr-only">用户</label>
         <input hidden  id="user_id" name="user_id">
         <label for="team_id" class="sr-only">用户</label>
@@ -88,6 +94,10 @@
 <script src="https://v4.bootcss.com/assets/js/vendor/popper.min.js"></script>
 <script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    $('#cancel').click(function () {
+        window.location.href = "/group.html";
+        window.event.returnValue=false;
+    });
     $('#createBtn').click(function () {
         $.ajax({
             //几个参数需要注意一下
@@ -97,10 +107,24 @@
             data: $('#discussform').serialize(),
             async :false,
             success: function (result) {
-                console.log(result);//打印服务端返回的数据(调试用)
-                console.log(result.value.tid);
                 alert(result.message);
-                window.location.href = "/detailTeam.html?"+result.value.tid+"";
+            },
+            error : function(error) {
+                console.log(error);
+                alert("异常！");
+            }
+        });
+        $.ajax({
+            //几个参数需要注意一下
+            type: "get",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/article/createTeam" ,//url
+            data: $('#discussform').serialize(),
+            async :false,
+            success: function (result) {
+                alert(result.message);
+                window.location.href = "/group.html";
+                window.event.returnValue=false;
             },
             error : function(error) {
                 console.log(error);

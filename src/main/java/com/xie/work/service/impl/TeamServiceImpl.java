@@ -35,6 +35,7 @@ public class TeamServiceImpl implements ITeamService {
         teamEntity.setTeamName(teamName);
         teamEntity.setCreateTime(timeStr);
         teamEntity.setNum(num);
+        teamEntity.setNowNum(1);
         teamEntity.setSlogan(slogan);
         teamDao.save(teamEntity);
         returnMap.put("value", teamEntity);
@@ -45,6 +46,28 @@ public class TeamServiceImpl implements ITeamService {
 
     public Map<String, Object> findTeam(Long tid) throws Exception {
         return null;
+    }
+
+    public Map<String, Object> findOneTeam(Long teamId) throws Exception {
+        Map<String,Object> returnMap = new HashMap<String,Object>();
+
+        String hql = "from TeamEntity  where uuid="+teamId+"";
+        TeamEntity teamEntity = new TeamEntity();
+        try {
+            teamEntity = teamDao.findOne(hql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(teamEntity!=null){
+            returnMap.put("value", teamEntity);
+            returnMap.put("message", "查找成功");
+            returnMap.put("success", true);
+
+        }else{
+            returnMap.put("message", "该队伍不存在!");
+            returnMap.put("success", false);
+        }
+        return returnMap;
     }
 
 

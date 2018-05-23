@@ -62,18 +62,17 @@
 
     </div>
     <form id ="discussform" class="form-signin" action="##" method="get">
-        <h2 class="form-signin-heading" align="center">新增讨论帖</h2>
-        <label for="title" class="sr-only">标题</label>
-        标题<input type="text" name="title" id="title" class="form-control"   autofocus>
-
-        内容  <div class="form-group">
+        <h2 class="form-signin-heading" align="center">发送入队请求</h2>
+        内容： <div class="form-group">
         <label for="content" class="sr-only">内容</label>
         <textarea class="form-control"  name="content"  id="content" rows="3"></textarea>
     </div>
-        <label for="user_id" class="sr-only">用户</label>
-        <input hidden  id="user_id" name="user_id">
+        <label for="userId" class="sr-only">用户</label>
+        <input hidden  id="userId" name="userId">
+        <label for="teamId" class="sr-only">队伍</label>
+        <input hidden  id="teamId" name="teamId">
 
-        <button id="createBtn" class="btn btn-lg btn-primary btn-block" >发布</button>
+        <button id="createBtn" class="btn btn-lg btn-primary btn-block" >发送</button>
         <button id="cancel" class="btn btn-lg btn-primary btn-block" >取消</button>
     </form>
 
@@ -86,20 +85,30 @@
 <script src="https://v4.bootcss.com/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $('#cancel').click(function () {
-        window.location.href = "/discuss.html";
+        window.location.href = "/group.html";
         window.event.returnValue=false;
-    })
+    });
+    function getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    };
     $('#createBtn').click(function () {
         $.ajax({
             //几个参数需要注意一下
             type: "get",//方法类型
             dataType: "json",//预期服务器返回的数据类型
-            url: "/article/createDiscuss" ,//url
+            url: "/request/createRequest" ,//url
             data: $('#discussform').serialize(),
             async: false,
             success: function (result) {
                 alert(result.message);
-                window.location.href= '/discuss.html';
+                window.location.href= '/group.html';
                 window.event.returnValue=false;
             },
             error : function(error) {
@@ -123,7 +132,8 @@
         var personObject = JSON.parse(getCookie("admin"))
         document.getElementById("btn").innerHTML =personObject.value.realname;
         document.getElementById("btn").disabled=true;
-        document.getElementById("user_id").value=personObject.value.id;
+        document.getElementById("userId").value=personObject.value.id;
+        document.getElementById("teamId").value=getQueryVariable("teamId");
     }else {
         alert("请先登录");
         window.location.href="/login.html";

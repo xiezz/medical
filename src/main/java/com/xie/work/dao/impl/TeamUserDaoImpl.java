@@ -1,8 +1,6 @@
 package com.xie.work.dao.impl;
 
-import com.xie.work.dao.ITeamDao;
 import com.xie.work.dao.ITeamUserDao;
-import com.xie.work.domain.TeamEntity;
 import com.xie.work.domain.TeamUserEntity;
 import org.springframework.stereotype.Component;
 

@@ -68,21 +68,17 @@
 <main role="main" class="container">
 
     <div class="my-3 p-3 bg-white rounded box-shadow" id="articleData" >
-        <h6 class="border-bottom border-gray pb-2 mb-0">文章</h6>
+        <h6 class="border-bottom border-gray pb-2 mb-0">队伍名称</h6>
     </div>
 
-    <div class="my-3 p-3 bg-white rounded box-shadow" id="data">
-        <h6 class="border-bottom border-gray pb-2 mb-0">讨论区</h6>
+    <div class="my-3 p-3 bg-white rounded box-shadow" id="date">
+        <h6 class="border-bottom border-gray pb-2 mb-0">队伍简介</h6>
     </div>
 
-    <div class="my-3 p-3 bg-white rounded box-shadow" >
-    <h6 class="border-bottom border-gray pb-2 mb-0">添加讨论</h6>
-        <form id ="discussform" class="form-signin" action="##" method="get">
-    <textarea class="form-control"  name="content"  id="content" rows="3"></textarea>
-    <button id="createBtn" class="btn btn-lg btn-primary btn-block" >发布</button>
-            <input hidden  id="user_id" name="user_id">
-            <input hidden  id="article_id" name="article_id">
-        </form>
+    <div class="my-3 p-3 bg-white rounded box-shadow" id="team">
+    <h6 class="border-bottom border-gray pb-2 mb-0">队伍成员</h6>
+    </div>
+
     </div>
 </main>
 
@@ -113,30 +109,6 @@
         }
         return false;
     };
-    $('#createBtn').click(function () {
-        if (getCookie("admin") != false) {
-            $.ajax({
-                type: "get",//方法类型
-                dataType: "json",//预期服务器返回的数据类型
-                url: "/article/createComment",//url
-                data: $('#discussform').serialize(),
-                async: false,
-                success: function (result) {
-                    console.log(result);//打印服务端返回的数据(调试用)
-                    alert(result.message);
-                    window.location.href = "/detailDiscuss.html?aid="+aid+"";
-                },
-                error: function (error) {
-                    console.log(error);
-                    alert("异常！");
-
-                }
-            });
-        } else {
-            alert("请先登录");
-            window.location.href = "/login.html";
-        }
-    });
 
     function getQueryVariable(variable)
     {
@@ -149,44 +121,31 @@
         return(false);
     };
 
-
     $(window).load (function(){
-        var aid=getQueryVariable("aid");
+        var aid=getQueryVariable("teamId");
         $.ajax({
             type:"get",
-            url:"/article/getComment",
-            data:'aid='+aid+'',
+            url:"/team/findOneTeam",
+            data:'teamId='+aid+'',
             success:function(result){
-                console.log(result)
                 var html = "";
-                var arr = result.value;
-                if(arr.length>0) {
-                    for (var i = 0; i < arr.length; i++) {
-                        html += "<div class=\"media text-muted pt-3\">\n" +
-                            "<div class=\"media-body pb-3 mb-0 small lh-125 border-bottom border-gray\">\n  " +
-                            "<div class=\"d-flex justify-content-between align-items-center w-100\">\n" +
-                            "<strong class=\"d-block text-gray-dark\">" + arr[i].content + " </strong>" ;
-                            $.ajax({
-                                type:"get",
-                                url:"/login/user",
-                                data:'id='+arr[i].userId+'',
-                                async: false,
-                                success:function(result1){
-                                    var username = result1.value.realname;
-                                    html +="<a href=\"\"  >" + username + " </a>" ;
-                                },
-                                error:function(error){
-                                    alert(error.status+""+error.statusText);
-                                }
-                            });
-                        html +="</div> " +
-                        "<span class=\"d-block\">" + arr[i].createTime+ "</span>\n" +
-                        "</div></div>";
-                    }
-                    document.getElementById("data").innerHTML += html;
-                    console.log(result);
-                    return false;
-                }
+                html += "<div class=\"media text-muted pt-3\">\n" +
+                    "<div class=\"media-body pb-3 mb-0 small lh-125 border-bottom border-gray\">\n  " +
+                    "<div class=\"d-flex justify-content-between align-items-center w-100\">\n" +
+                    "<strong class=\"d-block text-gray-dark\">" + result.value.teamName + " </strong>" +
+                    "</div> " +
+                    "</div>";
+                document.getElementById("articleData").innerHTML += html;
+
+                var html1 = "";
+                html1 += "<div class=\"media text-muted pt-3\">\n" +
+                    "<div class=\"media-body pb-3 mb-0 small lh-125 border-bottom border-gray\">\n  " +
+                    "<div class=\"d-flex justify-content-between align-items-center w-100\">\n" +
+                    "<strong class=\"d-block text-gray-dark\">" + result.value.slogan + " </strong>" +
+                    "</div> " +
+                    "<span class=\"d-block\"  display:block; float:right>" +  result.value.createTime+ "</span>\n" +
+                    "</div></div>";
+                document.getElementById("date").innerHTML += html1;
             },
             error:function(error){
                 alert(error.status+""+error.statusText);
@@ -194,32 +153,53 @@
         });
         $.ajax({
             type:"get",
-            url:"/article/getOneDiscuss",
-            data:'aid='+aid+'',
+            url:"/team/getTeamUser",
+            data:'teamId='+aid+'',
             success:function(result){
-                $.ajax({
-                    type:"get",
-                    url:"/login/user",
-                    data:'id='+result.value.userId+'',
-                    success:function(result1){
-                        var username = result1.value.realname;
-                        var html = "";
-                html += "<div class=\"media text-muted pt-3\">\n" +
-                    "<div class=\"media-body pb-3 mb-0 small lh-125 border-bottom border-gray\">\n  " +
-                    "<div class=\"d-flex justify-content-between align-items-center w-100\">\n" +
-                    "<strong class=\"d-block text-gray-dark\">" + result.value.title + " </strong>" +
-                            "<a href=\"\"  >" + username + " </a>" +
-                            "</div> " +
-                            "<span class=\"d-block\">" +  result.value.content+ "\n</span>\n" +
-                            "<span class=\"d-block\"  display:block; float:right>" +  result.value.createTime+ "</span>\n" +
+                if(getCookie("admin")!= false) {
+                    var personObject = JSON.parse(getCookie("admin"));
+                    var flag = 0;
+                    var html = "";
+                    var arr = result.value;
+                if(arr.length>0) {
+                    for (var i = 0; i < arr.length; i++) {
+                        if (personObject.value.id == arr[i].userId) {
+                            flag += 1;
+                        }
+                        html += "<div class=\"media text-muted pt-3\">\n" +
+                            "<div class=\"media-body pb-3 mb-0 small lh-125 border-bottom border-gray\">\n  " +
+                            "<div class=\"d-flex justify-content-between align-items-center w-100\">\n" ;
+                        $.ajax({
+                            type: "get",
+                            url: "/login/user",
+                            data: 'id=' + arr[i].userId + '',
+                            async: false,
+                            success: function (result1) {
+                                html += "<strong class=\"d-block text-gray-dark\">"+result1.value.realname+ " </strong>";
+                            },
+                            error: function (error) {
+                                alert(error.status + "" + error.statusText);
+                            }
+                        });
+                        html += "</div> " +
+                            "<span class=\"d-block\">" + arr[i].role + "</span>\n" +
                             "</div></div>";
-                    document.getElementById("articleData").innerHTML += html;
-                    return false;
-                    },
-                    error:function(error){
-                        alert(error.status+""+error.statusText);
                     }
-                });
+                    if (flag == 0) {
+                        console.log(aid);
+                        console.log(result);
+                        html += "<a href=\"createRequest.html?teamId=" +
+                            ""+aid+"" +
+                            "\">申请加入</a>";
+                    }
+                    document.getElementById("team").innerHTML += html;
+                    console.log(result);
+                    return false;
+                }else {
+                    alert("请先登录");
+                    window.location.href="/login.html";
+                }
+                }
             },
             error:function(error){
                 alert(error.status+""+error.statusText);
@@ -229,8 +209,6 @@
             var personObject = JSON.parse(getCookie("admin"));
             document.getElementById("btn").innerHTML =personObject.value.realname;
             document.getElementById("btn").disabled=true;
-            document.getElementById("user_id").value=personObject.value.id;
-            document.getElementById("article_id").value=aid;
         }});
 </script>
 </body>

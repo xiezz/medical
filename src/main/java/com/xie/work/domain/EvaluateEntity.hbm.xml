@@ -4,12 +4,12 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="com.xie.work.domain.TeamUserEntity" table="team_user" schema="platform">
-        <id name="id" column="id"/>
+    <class name="com.xie.work.domain.EvaluateEntity" table="evaluate" schema="platform">
+        <id name="eid" column="eid"/>
         <property name="teamId" column="team_id"/>
-        <property name="teamName" column="team_name"/>
+        <property name="mateId" column="mate_id"/>
         <property name="userId" column="user_id"/>
-        <property name="leader" column="leader"/>
-        <property name="role" column="role"/>
+        <property name="score" column="score"/>
+        <property name="reason" column="reason"/>
     </class>
 </hibernate-mapping>

@@ -11,5 +11,6 @@
         <property name="num" column="num"/>
         <property name="slogan" column="slogan"/>
         <property name="createTime" column="create_time"/>
+        <property name="nowNum" column="nowNum"/>
     </class>
 </hibernate-mapping>

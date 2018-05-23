@@ -10,6 +10,7 @@ public class TeamEntity {
     private Long uuid;
     private String teamName;
     private Integer num;
+    private Integer nowNum;
     private String slogan;
     private String createTime;
 
@@ -51,6 +52,16 @@ public class TeamEntity {
 
     public void setNum(Integer num) {
         this.num = num;
+    }
+
+    @Basic
+    @Column(name = "nowNum")
+    public Integer getNowNum() {
+        return nowNum;
+    }
+
+    public void setNowNum(Integer nowNum) {
+        this.nowNum = nowNum;
     }
 
     @Basic
