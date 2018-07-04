@@ -144,7 +144,7 @@
                                                 if(getCookie("admin")!= false) {
                                                     var personObject = JSON.parse(getCookie("admin"));
                                                     if (result2.value.id != personObject.value.id) {
-                                                        html +="<span class=\"d-block\">" + result2.value.realname + " <a href='' float:right>去评价</a></span>";
+                                                        html +="<span class=\"d-block\">"+result2.value.realname+"<a href='createEvaluate.html?mateId="+result2.value.id+"&teamId="+arr[i].teamId+"&userId="+personObject.value.id+"'>去评价</a></span>";
                                                     }
                                                 }
                                             },

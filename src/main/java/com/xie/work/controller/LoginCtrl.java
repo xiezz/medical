@@ -120,5 +120,4 @@ public class LoginCtrl {
         }
         return returnMap;
     }
-
 }
